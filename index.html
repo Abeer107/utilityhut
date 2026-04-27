@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UtilityHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="eyebrow">Smart Utility App</p>
+        <h1>UtilityHub</h1>
+        <p class="brand-copy">Passwords, projects, notes, and tasks in one quiet workspace.</p>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-button active" data-view="passwords">Password Vault</button>
+        <button class="nav-button" data-view="projects">Project Manager</button>
+        <button class="nav-button" data-view="notes">Notes Search</button>
+        <button class="nav-button" data-view="tasks">Task Manager</button>
+      </nav>
+
+      <section class="sidebar-card">
+        <h2>Storage</h2>
+        <p>Everything stays in your browser. Passwords are encrypted before being saved locally.</p>
+        <button id="export-data" class="secondary-button">Export Backup</button>
+      </section>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Workspace</p>
+          <h2 id="view-title">Password Vault</h2>
+        </div>
+        <div class="status-row">
+          <span id="sync-status" class="status-pill">Local storage ready</span>
+        </div>
+      </header>
+
+      <section class="view active" id="passwords-view">
+        <div class="panel-grid two-column">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Secure Vault</p>
+                <h3>Unlock or create your vault</h3>
+              </div>
+            </div>
+
+            <form id="vault-form" class="stack">
+              <label>
+                Master passphrase
+                <input id="master-password" name="master-password" type="password" placeholder="Enter a strong passphrase" required>
+              </label>
+              <div class="row">
+                <button type="submit" class="primary-button">Unlock Vault</button>
+                <button type="button" id="lock-vault" class="secondary-button">Lock</button>
+              </div>
+            </form>
+
+            <p class="helper-text">This vault uses Web Crypto with AES-GCM and PBKDF2 in your browser.</p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Generator</p>
+                <h3>Create a strong password</h3>
+              </div>
+            </div>
+            <div class="stack">
+              <label>
+                Generated password
+                <input id="generated-password" type="text" readonly>
+              </label>
+              <div class="row">
+                <button id="generate-password" type="button" class="primary-button">Generate</button>
+                <button id="use-generated" type="button" class="secondary-button">Use in form</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="panel-grid two-column">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">New Entry</p>
+                <h3>Add password</h3>
+              </div>
+            </div>
+            <form id="password-entry-form" class="stack">
+              <label>
+                Service
+                <input id="entry-service" name="entry-service" type="text" placeholder="GitHub" required>
+              </label>
+              <label>
+                Username or email
+                <input id="entry-username" name="entry-username" type="text" placeholder="name@example.com" required>
+              </label>
+              <label>
+                Password
+                <input id="entry-password" name="entry-password" type="text" placeholder="Paste or generate a password" required>
+              </label>
+              <label>
+                Notes
+                <textarea id="entry-notes" name="entry-notes" rows="3" placeholder="2FA, recovery code location, or context"></textarea>
+              </label>
+              <button type="submit" class="primary-button">Save Entry</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Saved Entries</p>
+                <h3>Your vault items</h3>
+              </div>
+              <input id="password-search" class="search-input" type="search" placeholder="Search services">
+            </div>
+            <div id="password-list" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="projects-view">
+        <div class="panel-grid two-column">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Planning</p>
+                <h3>Create a project</h3>
+              </div>
+            </div>
+            <form id="project-form" class="stack">
+              <label>
+                Project name
+                <input id="project-name" type="text" placeholder="Marketing site refresh" required>
+              </label>
+              <label>
+                Owner
+                <input id="project-owner" type="text" placeholder="You or a teammate" required>
+              </label>
+              <label>
+                Due date
+                <input id="project-due-date" type="date">
+              </label>
+              <label>
+                Status
+                <select id="project-status">
+                  <option value="Planned">Planned</option>
+                  <option value="Active">Active</option>
+                  <option value="Blocked">Blocked</option>
+                  <option value="Done">Done</option>
+                </select>
+              </label>
+              <label>
+                Summary
+                <textarea id="project-summary" rows="4" placeholder="What matters, what is risky, what comes next"></textarea>
+              </label>
+              <button type="submit" class="primary-button">Add Project</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Portfolio</p>
+                <h3>Track delivery</h3>
+              </div>
+            </div>
+            <div id="project-list" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="notes-view">
+        <div class="panel-grid two-column">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Capture</p>
+                <h3>Write a note</h3>
+              </div>
+            </div>
+            <form id="note-form" class="stack">
+              <label>
+                Title
+                <input id="note-title" type="text" placeholder="Sprint retro ideas" required>
+              </label>
+              <label>
+                Tags
+                <input id="note-tags" type="text" placeholder="retro, ideas, team">
+              </label>
+              <label>
+                Body
+                <textarea id="note-body" rows="8" placeholder="Write anything you want to find later" required></textarea>
+              </label>
+              <button type="submit" class="primary-button">Save Note</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Find</p>
+                <h3>Search notes</h3>
+              </div>
+              <input id="note-search" class="search-input" type="search" placeholder="Search title, tags, or body">
+            </div>
+            <div id="note-list" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="tasks-view">
+        <div class="panel-grid two-column">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Execution</p>
+                <h3>Add a task</h3>
+              </div>
+            </div>
+            <form id="task-form" class="stack">
+              <label>
+                Task
+                <input id="task-title" type="text" placeholder="Publish release notes" required>
+              </label>
+              <label>
+                Priority
+                <select id="task-priority">
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </label>
+              <label>
+                Linked project
+                <input id="task-project" type="text" placeholder="Optional">
+              </label>
+              <label>
+                Due date
+                <input id="task-due-date" type="date">
+              </label>
+              <button type="submit" class="primary-button">Add Task</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Queue</p>
+                <h3>Stay on top of work</h3>
+              </div>
+            </div>
+            <div id="task-list" class="list"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="empty-state-template">
+    <div class="empty-state">
+      <p>No items yet.</p>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
