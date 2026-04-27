@@ -1,5 +1,5 @@
-const STORAGE_KEY = "utilityhub-data-v1";
-const VAULT_KEY = "utilityhub-vault-v1";
+const STORAGE_KEY = "utilityhut-data-v1";
+const VAULT_KEY = "utilityhut-vault-v1";
 const ITERATIONS = 250000;
 
 const state = {
@@ -428,7 +428,7 @@ function exportData() {
 
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = `utilityhub-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  link.download = `UtilityHut-backup-${new Date().toISOString().slice(0, 10)}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
   setStatus("Backup exported");
