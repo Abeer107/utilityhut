@@ -1,6 +1,6 @@
 # UtilityHut
 
-UtilityHub is a static smart utility app that combines:
+UtilityHut is a static smart utility app that combines:
 
 - Password manager with browser-side encryption
 - Project manager
