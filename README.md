@@ -1,4 +1,4 @@
-# UtilityHub
+# UtilityHut
 
 UtilityHub is a static smart utility app that combines:
 
